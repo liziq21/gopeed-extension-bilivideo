@@ -31,6 +31,36 @@ jobs:
       - name: Build plugin
         run: npm run build
 
+      # --- START DEBUGGING STEPS ---
+      - name: Verify dist directory and index.js existence
+        run: |
+          echo "--- Contents of dist/ directory ---"
+          # 列出 dist 目录内容，并处理目录不存在的情况
+          ls -la dist/ || { echo "Error: dist/ directory not found or empty."; exit 1; }
+          echo "--- Checking for dist/index.js ---"
+          if [ -f dist/index.js ]; then
+            echo "dist/index.js found. First 100 characters:"
+            head -c 100 dist/index.js # 打印文件的前100个字符
+            echo ""
+          else
+            echo "Error: dist/index.js was NOT found after build!"
+            exit 1 # 如果文件不存在，直接让工作流失败
+          fi
+
+      - name: Check Git status before commit
+        run: |
+          echo "--- Git status (porcelain) ---"
+          git status --porcelain # 显示简洁的更改状态 (M=修改, A=新增, ??=未跟踪)
+          echo "--- Git diff (staged) ---"
+          git diff --staged # 显示已暂存的更改
+          echo "--- Git diff (unstaged) ---"
+          git diff # 显示未暂存的更改
+          echo "--- Check .gitignore for dist/ ---"
+          if grep -q "dist/" .gitignore; then
+            echo "Warning: .gitignore contains 'dist/', which might prevent tracking."
+          fi
+      # --- END DEBUGGING STEPS ---
+
       - name: Commit build artifacts
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -39,3 +69,5 @@ jobs:
           commit_author: "GitHub Actions <actions@github.com>"
           branch: ${{ github.ref_name }}
           skip_ci: true
+          
+          
