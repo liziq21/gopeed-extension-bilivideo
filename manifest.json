@@ -4,7 +4,7 @@
   "title": "bilivideo",
   "description": "下载b站视频",
   "icon": "icon.png",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/lzqlzq21/gopeed-extension-bilivideo",
   "repository": { "url": "https://github.com/lzqlzq21/gopeed-extension-bilivideo" },
   "scripts": [
