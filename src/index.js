@@ -112,6 +112,7 @@ gopeed.events.onResolve(async (ctx) => {
         qn: gopeed.settings.videoQuality,
       });
       fileReqInfo.url = media.durl[0];
+      gopeed.logger.debug(`${fileName}[${media.format}].mp4`);
       return [{
         name: `${fileName}[${media.format}].mp4`,
         req: fileReqInfo,
