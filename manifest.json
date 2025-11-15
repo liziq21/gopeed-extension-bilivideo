@@ -1,0 +1,160 @@
+{
+  "name": "bilivideo",
+  "author": "lzqlzq21",
+  "title": "bilivideo",
+  "description": "下载b站视频",
+  "icon": "icon.png",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lzqlzq21/gopeed-extension-bilivideo",
+  "repository": { "url": "https://github.com/lzqlzq21/gopeed-extension-bilivideo" },
+  "scripts": [
+    {
+      "event": "onResolve",
+      "match": { "urls": [ "*://*.bilibili.com/video/*" ] },
+      "entry": "dist/index.js"
+    },
+    {
+      "event": "onStart",
+      "match": { "labels": [ "lzqlzq21@bilibili" ] },
+      "entry": "dist/index.js"
+    },
+    {
+      "event": "onError",
+      "match": { "labels": [ "lzqlzq21@bilibili" ] },
+      "entry": "dist/index.js"
+    }
+  ],
+  "settings": [
+    {
+      "key": "cookie",
+      "type": "string",
+      "valve": "",
+      "label": "Cookie"
+    },
+    {
+      "key": "stm",
+      "type": "string",
+      "value": "mp4",
+      "options": [
+        { "label": "MP4", "value": "mp4" },
+        { "label": "DASH", "value": "dash" }
+      ],
+      "label": "流媒体",
+      "description": "首选流媒体，DASH 会使音视频分离"
+    },
+    {
+      "key": "videoQuality",
+      "type": "number",
+      "value": 80,
+      "options": [
+        {
+          "label": "8K 超高清",
+          "value": 127
+        },
+        {
+          "label": "杜比视界",
+          "value": 126
+        },
+        {
+          "label": "HDR 真彩色",
+          "value": 125
+        },
+        {
+          "label": "4K 超清",
+          "value": 120
+        },
+        {
+          "label": "1080P60 高帧率",
+          "value": 116
+        },
+        {
+          "label": "1080P+ 高码率",
+          "value": 112
+        },
+        {
+          "label": "智能修复",
+          "value": 100
+        },
+        {
+          "label": "1080P 高清",
+          "value": 80
+        },
+        {
+          "label": "720P60 高帧率",
+          "value": 74
+        },
+        {
+          "label": "720P 高清",
+          "value": 64
+        },
+        {
+          "label": "480P 清晰",
+          "value": 32
+        },
+        {
+          "label": "360P 流畅",
+          "value": 16
+        },
+        {
+          "label": "240P 极速",
+          "value": 8
+        }
+      ],
+      "label": "视频清晰度",
+      "description": "首选视频清晰度，所选清晰度不可用时，将尝试获取更低清晰度。仅 DASH 支持较高分辨率，仅 MP4 支持 “240P 极速”"
+    },
+    {
+      "key": "videoCodec",
+      "type": "number",
+      "value": 0,
+      "options": [
+        {
+          "label": "默认",
+          "value": 0
+        },
+        {
+          "label": "AVC",
+          "value": 7
+        },
+        {
+          "label": "HEVC",
+          "value": 12
+        },
+        {
+          "label": "AV1",
+          "value": 13
+        }
+      ],
+      "label": "视频编码"
+    },
+    {
+      "key": "audioQuality",
+      "type": "number",
+      "value": 30251,
+      "options": [
+        {
+          "label": "Hi-Res 无损",
+          "value": 30251
+        },
+        {
+          "label": "杜比全景声",
+          "value": 30250
+        },
+        {
+          "label": "192k",
+          "value": 30280
+        },
+        {
+          "label": "128k",
+          "value": 30232
+        },
+        {
+          "label": "64k",
+          "value": 30216
+        }
+      ],
+      "label": "音频清晰度",
+      "description": "首选视频清晰度，所选清晰度不可用时，将尝试获取更低清晰度。仅 DASH 支持较高分辨率，仅 MP4 支持 “240P 极速”"
+    }
+  ]
+}
