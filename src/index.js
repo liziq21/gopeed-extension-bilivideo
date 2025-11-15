@@ -157,7 +157,6 @@ async function updateDownloadUrl(task) {
     }
   }
   
-  const dash = await getDashStreamInfo(labels.bvid, labels.cid);
   req.url = labels.type === "video" ? dash.videoUrl : dash.audioUrl;
 }
 
@@ -176,8 +175,8 @@ async function getMp4StreamInfo(bvid, cid) {
 }
 
 async function getDashStreamInfo(bvid, cid) {
-  const video = new Video({ cookie: gopeed.settings.cookie?.trim() || undefined }, true);
-  const media = await video.playurl({
+   
+  const media = await (new Video({ cookie: gopeed.settings.cookie?.trim() || undefined }, true)).playurl({
     bvid,
     cid,
     fnval: 16 | 4048,
