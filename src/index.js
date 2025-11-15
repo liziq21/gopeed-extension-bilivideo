@@ -78,7 +78,7 @@ gopeed.events.onResolve(async (ctx) => {
   const data = await video.detail(videoId);
   const pages = data.View?.pages || []
 
-  const isMultiPart = data.pages.length > 1;
+  const isMultiPart = pages.length > 1;
   const partsToDownload = parsePartRange(url.searchParams.get('p'), pages.length);
   if (partsToDownload.length === 0) {
     gopeed.logger.warn(`根据参数 'p' (值: ${url.searchParams.get('p')}) 未找到有效的下载分P。`);
@@ -88,7 +88,7 @@ gopeed.events.onResolve(async (ctx) => {
   const files = partsToDownload.flatMap(async (pIndex) => {
     const pageInfo = pages[pIndex];
     const pageName = isMultiPart ? `[P${pIndex + 1}][${pageInfo.part}]` : '';
-    const fileName = `[Bilibili][${data.title}]${pageName}`;
+    const fileName = `[Bilibili][${data.View.title}]${pageName}`;
     
     const fileReqInfo = {
       extra: { header: { Referer: REFERER_HEADER } },
@@ -131,7 +131,7 @@ gopeed.events.onResolve(async (ctx) => {
   });
 
   ctx.res = {
-    name: data.title,
+    name: data.View.title,
     files: files,
   };
 });
