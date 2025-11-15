@@ -85,7 +85,7 @@ gopeed.events.onResolve(async (ctx) => {
     return;
   }
 
-  const files = partsToDownload.flatMap((pIndex) => {
+  const files = partsToDownload.flatMap(async (pIndex) => {
     const pageInfo = pages[pIndex];
     const pageName = isMultiPart ? `[P${pIndex + 1}][${pageInfo.part}]` : '';
     const fileName = `[Bilibili][${data.title}]${pageName}`;
@@ -118,7 +118,7 @@ gopeed.events.onResolve(async (ctx) => {
       }];
     }
     
-    const dash = getDashStreamInfo(data.View.bvid, pageInfo.cid)
+    const dash = await getDashStreamInfo(data.View.bvid, pageInfo.cid);
     return Object.entries(FILE_EXTENSIONS).map(([type, ext]) => {
       fileReqInfo.url = type === "video" ? dash.videoUrl : dash.audioUrl;
       fileReqInfo.labels.stm = "dash";
@@ -150,14 +150,14 @@ gopeed.events.onError(async (ctx) => {
 
 async function updateDownloadUrl(task) {
   if (labels.stm === "mp4") {
-    const mp4 = getMp4StreamInfo(labels.bvid, labels.cid);
+    const mp4 = await getMp4StreamInfo(labels.bvid, labels.cid);
     if (mp4) {
       req.url = mp4.url;
       return;
     }
   }
   
-  const dash = getDashStreamInfo(labels.bvid, labels.cid);
+  const dash = await getDashStreamInfo(labels.bvid, labels.cid);
   req.url = labels.type === "video" ? dash.videoUrl : dash.audioUrl;
 }
 
