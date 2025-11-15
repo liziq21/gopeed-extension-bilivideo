@@ -4,7 +4,7 @@
   "title": "bilivideo",
   "description": "下载b站视频",
   "icon": "icon.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/lzqlzq21/gopeed-extension-bilivideo",
   "repository": { "url": "https://github.com/lzqlzq21/gopeed-extension-bilivideo" },
   "scripts": [
@@ -29,7 +29,7 @@
       "name": "cookie",
       "type": "string",
       "valve": "",
-      "label": "Cookie"
+      "title": "Cookie"
     },
     {
       "name": "stm",
